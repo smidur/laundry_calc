@@ -23,3 +23,10 @@ QPushButton {
 QLabel {
     font-size: 20px
 }
+
+QSpinBox {
+    font-size: 20px;
+}
+QDoubleSpinBox {
+    font-size: 20px;
+}

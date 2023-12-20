@@ -9,8 +9,8 @@ class LaundryCalculator(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Laundry Calculator")
-        self.setMinimumWidth(400)
-        self.setMinimumHeight(270)
+        self.setMinimumWidth(600)
+        self.setMinimumHeight(400)
         grid = QGridLayout()
 
         # create and add widgets
@@ -50,6 +50,7 @@ class LaundryCalculator(QWidget):
         self.vat_label = QLabel("With VAT: ")
         self.vat_label.setVisible(False)
         self.vat_label_result = QLabel()
+        self.vat_label_result.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.vat_label_result.setVisible(False)
         grid.addWidget(self.vat_label, 3, 0)
         grid.addWidget(self.vat_label_result, 3, 1)
@@ -60,18 +61,19 @@ class LaundryCalculator(QWidget):
         self.copy_vat_button.setVisible(False)
         grid.addWidget(self.copy_vat_button, 3, 2)
 
+        self.no_vat_label = QLabel("Without VAT: ")
+        self.no_vat_label.setVisible(False)
+        self.no_vat_label_result = QLabel()
+        self.no_vat_label_result.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.no_vat_label_result.setVisible(False)
+        grid.addWidget(self.no_vat_label, 4, 0)
+        grid.addWidget(self.no_vat_label_result, 4, 1)
+
         self.copy_no_vat_button = QPushButton("Copy")
         self.copy_no_vat_button.clicked.connect(self.copy_no_vat)
         self.copy_no_vat_button.pressed.connect(self.copy_no_vat)
         self.copy_no_vat_button.setVisible(False)
-        grid.addWidget(self.copy_no_vat_button, 3, 2)
-
-        self.no_vat_label = QLabel("Without VAT: ")
-        self.no_vat_label.setVisible(False)
-        self.no_vat_label_result = QLabel()
-        self.no_vat_label_result.setVisible(False)
-        grid.addWidget(self.no_vat_label, 4, 0)
-        grid.addWidget(self.no_vat_label_result, 4, 1)
+        grid.addWidget(self.copy_no_vat_button, 4, 2)
 
         with open("style.qss", "r") as f:
             style = f.read()
