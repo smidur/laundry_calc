@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import (QApplication, QLabel, QWidget, QGridLayout, QPushButton,
                              QComboBox, QSpinBox, QDoubleSpinBox)
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QKeyEvent, QKeySequence
 import sys
 
 
@@ -53,6 +54,7 @@ class LaundryCalculator(QWidget):
         self.rate_dbl_spinbox.setRange(0.0, 10.0)
         self.rate_dbl_spinbox.setSingleStep(0.01)
         self.rate_dbl_spinbox.setValue(3.7)
+        self.rate_dbl_spinbox.valueChanged.connect(self.calculate)
         grid.addWidget(rate_label, 0, 0)
         grid.addWidget(self.rate_dbl_spinbox, 0, 1)
 
@@ -62,14 +64,16 @@ class LaundryCalculator(QWidget):
         self.vat_percent_spinbox.setSuffix("% VAT")
         self.vat_percent_spinbox.setValue(17)
         self.vat_percent_spinbox.setMaximumWidth(140)
+        self.vat_percent_spinbox.valueChanged.connect(self.calculate)
         grid.addWidget(self.vat_percent_spinbox, 0, 2)
 
         value_label = QLabel("Value:")
         value_label.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
         self.value_dbl_spinbox = QDoubleSpinBox()
         self.value_dbl_spinbox.setRange(0.0, 10000000)
-        self.value_dbl_spinbox.setSingleStep(100.0)
+        self.value_dbl_spinbox.setSingleStep(40.0)
         self.value_dbl_spinbox.setValue(0)
+        self.value_dbl_spinbox.valueChanged.connect(self.calculate)
         grid.addWidget(value_label, 1, 0)
         grid.addWidget(self.value_dbl_spinbox, 1, 1)
 
@@ -81,19 +85,13 @@ class LaundryCalculator(QWidget):
         self.currency_combobox.setMaximumWidth(140)
         grid.addWidget(self.currency_combobox, 1, 2, 1, 2)
 
-        calculate_button = QPushButton("CALCULATE")
-        calculate_button.clicked.connect(self.calculate)
-        calculate_button.pressed.connect(self.calculate)
-        calculate_button.setStyleSheet(button_style)
-        grid.addWidget(calculate_button, 2, 1, 1, 2)
-
         self.vat_label = QLabel("+VAT:")
         self.vat_label.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
         self.vat_label.setStyleSheet(vat_label_style)
         self.vat_label_result = QLabel()
         self.vat_label_result.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.vat_label_result.setStyleSheet(vat_label_style)
-        self.vat_label_result.setText("0 USD")
+        self.vat_label_result.setText("0.0 USD")
         grid.addWidget(self.vat_label, 3, 0)
         grid.addWidget(self.vat_label_result, 3, 1)
 
@@ -108,7 +106,7 @@ class LaundryCalculator(QWidget):
         self.no_vat_label.setStyleSheet(no_vat_label_style)
         self.no_vat_label_result = QLabel()
         self.no_vat_label_result.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.no_vat_label_result.setText("0 USD")
+        self.no_vat_label_result.setText("0.0 USD")
         grid.addWidget(self.no_vat_label, 4, 0)
         grid.addWidget(self.no_vat_label_result, 4, 1)
 
