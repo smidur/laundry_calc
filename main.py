@@ -13,8 +13,8 @@ class LaundryCalculator(QWidget):
 
         # set stylesheet for elements
         currency_combobox_style = """
-            margin-top: 7px;
-            padding: 4px 10px 4px 10px;
+            margin-top: 8px;
+            padding: 2px 10px 2px 10px;
             font-weight: bold;
             font-size: 18px;
         """
@@ -78,7 +78,8 @@ class LaundryCalculator(QWidget):
         self.currency_combobox.addItems(currency_options)
         self.currency_combobox.currentIndexChanged.connect(self.calculate)
         self.currency_combobox.setStyleSheet(currency_combobox_style)
-        self.currency_combobox.setMaximumWidth(140)
+        self.currency_combobox.setMaximumWidth(120)
+        self.currency_combobox.setMaximumHeight(49)
         grid.addWidget(self.currency_combobox, 1, 2, 1, 2)
 
         calculate_button = QPushButton("CALCULATE")
