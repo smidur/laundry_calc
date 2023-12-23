@@ -25,11 +25,6 @@ class LaundryCalculator(QWidget):
         no_vat_label_style = """
             font-size: 22px;
         """
-        button_style = """
-            padding: 10px 10px;
-            font-size: 22px;
-            font-weight: bold;
-        """
         top_copy_button_style = """
             margin-top: 50px;
             font-weight: bold;
