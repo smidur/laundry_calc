@@ -29,21 +29,55 @@ author_text = """
 """
 print(author_text)
 
-num_pattern = re.compile(r'[0-9]+[,.][0-9]*|[0-9]+')
-quit_pattern = re.compile(r'q|quit')
+quit_cup = """
+                                                                           
+                      ▒░                             ░░                    
+                    █▒░░▒▓▒▓████████████████████▓░░░░ ░██                  
+                    █                                 ▓░                  
+                    █▓                                █                   
+              █████ ▒▒                                █                   
+                  ▓ ▒▒                                █                   
+           █  ▓     ██  ▓  ░░                         █                   
+          ██ █      ▓█         ▓▒▒░░░ ░ ░░░           █                   
+          ▓  █      ▒█▒▒▓▒████▒▒▒▒▒▓▓▓▓▓▓▓▓▓███▓█████░▒                   
+             ▒▓      █▒████████████████████████████████                    
+            ▓   ▒    ▒▓█▒██████████████████████████████                    
+              ███  ░ ▒ ░ ░██▓▓▓▓▓███████████▓▓▓▓▓█▓▒▓▓█    ░░              
+           ░▒░     ▒ ███  ▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▒▓█         ▒░░        
+       ░▒▓▒▒░░░░░░░  ██▓▒▒▓█▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▒█▓          ░░ ▒      
+      █   ░░░░░░░░░  ███░▒▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░▓▒██      ░░░      ▒    
+       █▓▒▒░  ░░░░░░  ▓█▓░▓█████████▓▓▓▓▓▓▓███▓█▓█████  ░░░░░      ░██     
+          ▓▒▓░          ▒█▓▒░░░▒▓▓▓▓██████▓▓▓▓▓▓███           ░████        
+             ███████████  ███████████████████████░▓░▒█████████▒            
+                 ▓███▒░▒▒▒         ░░ ░▒▓▒▒░       ██▓░░                   
+                       ▒▓████▓▓▓██▓  ██  ░ ░██▓██▒░       ░░░░░░           
+                             ▒▒▒▒▓██▓▒▓▓████████    ░░░░                   
+                  Чай дохлёбываем и у*бываем! (с)Аннушка\n
+"""
+
+quit_text0 = "If you want to quit the app, type 'q' or 'quit'"
+quit_text1 = "Чай дохлёбываем и у*бываем! (с)Аннушка\n"
+quit_text2 = "Auf wiedersehen, бл*ть! (c)Аннушка\n"
 
 
 def check_quit(text: str):
     match text:
         case "q":
-            print("Auf wiedersehen, бл***! (c) Аннушка")
-            time.sleep(2)
-            exit()
-        case "quit":
-            print("Чай дохлёбываем и у*бываем! (с) Аннушка")
+            print(quit_cup)
             time.sleep(4)
-            exit()
+            exit(0)
+        case "quit":
+            print(quit_cup)
+            print(quit_text2)
+            time.sleep(4)
+            exit(0)
 
+
+num_pattern = re.compile(r'[0-9]+[,.][0-9]*|[0-9]+')
+quit_pattern = re.compile(r'q|quit')
+
+print("Welcome! Let us start!")
+print(quit_text0)
 
 while True:
     try:
@@ -59,13 +93,13 @@ while True:
         rate = float(rate_re)
 
         print()
-        print(f"VAT value set as: {vat * 100 - 100}")
-        print(f"Rate value set as: {rate}")
+        print(f"VAT set as: {vat_str}%")
+        print(f"Rate set as: {rate_str} (ILS for 1 USD)")
         print()
         break
     except AttributeError:
         print("You entered incorrect RATE/VAT or mistyped somewhere!")
-        print("If you want to quit the app, type 'q' or 'quit'")
+        print(quit_text0)
         continue
 
 while True:
@@ -81,11 +115,11 @@ while True:
         cost_no_vat = round(cost_no_vat, 2)
         cost_vat = round(cost_vat, 2)
 
-        print("In USD: {:22.2f}".format(cost_vat))
-        print("Cost without VAT is: {:9.2f}".format(cost_no_vat))
+        print("{:>20s} | {:.2f}".format("In USD:", cost_vat))
+        print("Cost without VAT is: | {:.2f}".format(cost_no_vat))
         print()
 
     except AttributeError:
         print("You entered incorrect VALUE or mistyped somewhere!")
-        print("If you want to quit the app, type 'q' or 'quit'")
+        print(quit_text0)
         continue
